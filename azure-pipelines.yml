@@ -1,0 +1,35 @@
+trigger: none
+
+pool:
+  name: PoolAirtel
+  demands:
+    - Agent.Name -equals Ramesh
+
+jobs:
+- job: RunOnRamesh
+  displayName: Ramesh Hi chalayega (Ramesh = AirtelPool)
+  pool:
+    name: PoolAirtel
+    demands:
+      - Agent.Name -equals Airtelagent
+
+  steps:
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "Hello World from Ramesh Agent!"
+  - task: NodeTool@0
+    inputs:
+      versionSource: 'spec'
+      versionSpec: '16.x'
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: 'npm run build'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: 'npm run build'
+     
